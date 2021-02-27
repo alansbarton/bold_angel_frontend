@@ -26,17 +26,13 @@
           <div class="col-xl-8 col-lg-7">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
               <div id="bg-size" class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="assets/img/bg_2.JPG" class="d-block w-100 h-100" alt="..." />
-                </div>
-                <div class="carousel-item">
-                  <img src="assets/img/bg_3.JPG" class="d-block w-100 h-100" alt="..." />
-                </div>
-                <div class="carousel-item">
-                  <img src="assets/img/bg_5.JPG" class="d-block w-100 h-100" alt="..." />
-                </div>
-                <div class="carousel-item">
-                  <img src="assets/img/bg_6.JPG" class="d-block w-100 h-100" alt="..." />
+                <div
+                  class="carousel-item"
+                  v-if="photo_one.carousel == 1"
+                  v-for="(photo_one, idx) in photo_ones"
+                  :class="{ active: idx == 0 }"
+                >
+                  <img v-bind:src="photo_one.image" class="d-block w-100 h-100" alt="..." />
                 </div>
               </div>
               <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-bs-slide="prev">
@@ -77,33 +73,29 @@
           </div>
         </div>
         <!-- Project Two Row-->
-        <div class="col-lg-6">
-          <!-- <div class="row justify-content-center no-gutters">
-                          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                              <div class="carousel-inner">
-                                  <div class="carousel-item active">
-                                      <img src="assets/img/bg_1.JPG" class="d-block w-100" alt="...">
-                                  </div>
-                                  <div class="carousel-item">
-                                      <img src="assets/img/bg_2.JPG" class="d-block w-100" alt="...">
-                                  </div>
-                                  <div class="carousel-item">
-                                      <img src="assets/img/bg_3.JPG" class="d-block w-100" alt="...">
-                                  </div>
-                                  <div class="carousel-item">
-                                      <img src="assets/img/bg_4.JPG" class="d-block w-100" alt="...">
-                                  </div>
-                              </div>
-                              <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-bs-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Previous</span>
-                              </a>
-                              <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-bs-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Next</span>
-                              </a>
-                          </div>
-                      </div> -->
+        <div class="row justify-content-center no-gutters">
+          <div class="col-lg-6">
+            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+              <div id="bg-size" class="carousel-inner">
+                <div
+                  class="carousel-item"
+                  v-if="photo_one.carousel == 1"
+                  v-for="(photo_one, idx) in photo_ones"
+                  :class="{ active: idx == 0 }"
+                >
+                  <img v-bind:src="photo_one.image" class="d-block w-100 h-100" alt="..." />
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </a>
+            </div>
+          </div>
           <div class="col-lg-6 order-lg-first">
             <div class="bg-black text-center h-100 project">
               <div class="d-flex h-100">
@@ -189,13 +181,24 @@
 <style></style>
 
 <script>
+import axios from "axios";
+
 export default {
   data: function() {
     return {
-      message: "Welcome to Vue.js!",
+      photo_ones: [],
     };
   },
-  created: function() {},
-  methods: {},
+  created: function() {
+    this.indexPhotos();
+  },
+  methods: {
+    indexPhotos: function() {
+      axios.get("api/photo_ones").then(response => {
+        console.log("photos index", response);
+        this.photo_ones = response.data;
+      });
+    },
+  },
 };
 </script>
