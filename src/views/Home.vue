@@ -5,16 +5,22 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <h2 class="text-white mb-4">Built with Bootstrap 4</h2>
+            <h2 class="text-white mb-4">Why the name Bold Angel Productions?</h2>
             <p class="text-white-50">
-              Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download
-              the template on
-              <a href="https://startbootstrap.com/theme/grayscale/">the preview page</a>
-              . The theme is open source, and you can use it for any purpose, personal or commercial.
+              I have always been fascinated with the idea of how Angels can be betrayed. Whether they are shown as the
+              light in someone's life, surrounded by positivity, or they are dark, tattered, and torn almost to a gothic
+              representation. It got me thinking, what if we all have both angels in us? Or what if either of those
+              angels if exactly how we want to be seen? People have their own way of representing who they are and could
+              enjoy the dark side over the light. Or you could be waiting for that light to come through the dark,
+              waiting for that moment to help you pull through to find the light. I want to showcase whatever side you
+              believe represents who you are. Perhaps you want to try something to bring out the other angel in you.
+              Whether you see the light, or enjoy the darkness, we all have that one thing that makes us Bold. Being
+              Bold, can mean whatever you want it to mean, I want it to be my job to show it off. In the words of Jen
+              Ledger, repeat this to yourself everyday, “I’m Gonna Be Bold.”
             </p>
           </div>
         </div>
-        <img class="img-fluid" src="assets/img/ipad.png" alt="" />
+        <!-- <img class="img-fluid" src="assets/img/ipad.png" alt="" /> -->
       </div>
     </section>
     <!-- Projects-->
@@ -57,14 +63,14 @@
         </div>
         <!-- Project One Row-->
         <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-          <div class="col-lg-6"><img class="img-fluid" src="assets/img/bg_1.JPG" alt="" /></div>
+          <div class="col-lg-6"><img class="img-fluid" v-bind:src="users[0].profile_pic" alt="" /></div>
           <div class="col-lg-6">
             <div class="bg-black text-center h-100 project">
               <div class="d-flex h-100">
                 <div class="project-text w-100 my-auto text-center text-lg-left">
                   <h4 class="text-white">About Me</h4>
                   <p class="mb-0 text-white-50">
-                    An example of where you can put an image of a project, or anything else, along with a description.
+                    {{ users[0].about_me }}
                   </p>
                   <hr class="d-none d-lg-block mb-0 ml-0" />
                 </div>
@@ -79,8 +85,8 @@
               <div id="bg-size" class="carousel-inner">
                 <div
                   class="carousel-item"
-                  v-if="photo_one.carousel == 1"
                   v-for="(photo_one, idx) in photo_ones"
+                  v-if="photo_one.carousel == 1"
                   :class="{ active: idx == 0 }"
                 >
                   <img v-bind:src="photo_one.image" class="d-block w-100 h-100" alt="..." />
@@ -153,7 +159,9 @@
                 <i class="fas fa-envelope text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Email</h4>
                 <hr class="my-4" />
-                <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
+                <div class="small text-black-50">
+                  <a href="#!">{{ users[0].email }}</a>
+                </div>
               </div>
             </div>
           </div>
@@ -163,15 +171,15 @@
                 <i class="fas fa-mobile-alt text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Phone</h4>
                 <hr class="my-4" />
-                <div class="small text-black-50">+1 (555) 902-8832</div>
+                <div class="small text-black-50">{{ users[0].phone_number }}</div>
               </div>
             </div>
           </div>
         </div>
         <div class="social d-flex justify-content-center">
-          <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+          <a class="mx-2" href="#!"><i class="fab fa-tiktok"></i></a>
           <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-          <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+          <a class="mx-2" href="#!"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </section>
@@ -187,9 +195,13 @@ export default {
   data: function() {
     return {
       photo_ones: [],
+      users: {
+        about_me: "",
+      },
     };
   },
   created: function() {
+    this.indexUsers();
     this.indexPhotos();
   },
   methods: {
@@ -197,6 +209,12 @@ export default {
       axios.get("api/photo_ones").then(response => {
         console.log("photos index", response);
         this.photo_ones = response.data;
+      });
+    },
+    indexUsers: function() {
+      axios.get("api/users").then(response => {
+        console.log("user index", response);
+        this.users = response.data;
       });
     },
   },
