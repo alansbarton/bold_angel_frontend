@@ -17,6 +17,16 @@
               Whether you see the light, or enjoy the darkness, we all have that one thing that makes us Bold. Being
               Bold, can mean whatever you want it to mean, I want it to be my job to show it off. In the words of Jen
               Ledger, repeat this to yourself everyday, “I’m Gonna Be Bold.”
+              <br />
+              <br />
+              <br />
+              <button
+                type="button"
+                class="btn btn-light"
+                href="https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct"
+              >
+                Book Now
+              </button>
             </p>
           </div>
         </div>
@@ -30,14 +40,28 @@
         <!-- Featured Project Row-->
         <div class="row align-items-center no-gutters mb-4 mb-lg-5">
           <div class="col-xl-8 col-lg-7">
+            <img
+              v-if="users && users[0] && users[0].profile_pic"
+              class="img-fluid"
+              v-bind:src="users[0].profile_pic"
+              alt=""
+            />
+          </div>
+          <div class="col-xl-4 col-lg-5">
+            <div class="featured-text text-center text-lg-left">
+              <h4>About Me</h4>
+              <p v-if="users && users[0] && users[0].about_me" class="text-black-50 mb-0">
+                {{ users[0].about_me }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Project One Row-->
+        <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+          <div class="col-lg-6">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
               <div id="bg-size" class="carousel-inner">
-                <div
-                  class="carousel-item"
-                  v-if="photo_one.carousel == 1"
-                  v-for="(photo_one, idx) in photo_ones"
-                  :class="{ active: idx == 0 }"
-                >
+                <div class="carousel-item" v-for="(photo_one, idx) in carousel1" :class="{ active: idx == 0 }">
                   <img v-bind:src="photo_one.image" class="d-block w-100 h-100" alt="..." />
                 </div>
               </div>
@@ -51,26 +75,14 @@
               </a>
             </div>
           </div>
-          <div class="col-xl-4 col-lg-5">
-            <div class="featured-text text-center text-lg-left">
-              <h4>Shoreline</h4>
-              <p class="text-black-50 mb-0">
-                Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial
-                projects! Download it, customize it, and publish your website!
-              </p>
-            </div>
-          </div>
-        </div>
-        <!-- Project One Row-->
-        <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-          <div class="col-lg-6"><img class="img-fluid" v-bind:src="users[0].profile_pic" alt="" /></div>
           <div class="col-lg-6">
             <div class="bg-black text-center h-100 project">
               <div class="d-flex h-100">
                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                  <h4 class="text-white">About Me</h4>
+                  <h4 class="text-white">Shoreline</h4>
                   <p class="mb-0 text-white-50">
-                    {{ users[0].about_me }}
+                    Grayscale is open source and MIT licensed. This means you can use it for any project - even
+                    commercial projects! Download it, customize it, and publish your website!
                   </p>
                   <hr class="d-none d-lg-block mb-0 ml-0" />
                 </div>
@@ -81,22 +93,17 @@
         <!-- Project Two Row-->
         <div class="row justify-content-center no-gutters">
           <div class="col-lg-6">
-            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div id="carouselExampleFade1" class="carousel slide carousel-fade" data-bs-ride="carousel">
               <div id="bg-size" class="carousel-inner">
-                <div
-                  class="carousel-item"
-                  v-for="(photo_one, idx) in photo_ones"
-                  v-if="photo_one.carousel == 1"
-                  :class="{ active: idx == 0 }"
-                >
+                <div class="carousel-item" v-for="(photo_one, idx) in carousel2" :class="{ active: idx == 0 }">
                   <img v-bind:src="photo_one.image" class="d-block w-100 h-100" alt="..." />
                 </div>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-bs-slide="prev">
+              <a class="carousel-control-prev" href="#carouselExampleFade1" role="button" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
               </a>
-              <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-bs-slide="next">
+              <a class="carousel-control-next" href="#carouselExampleFade1" role="button" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </a>
@@ -159,7 +166,7 @@
                 <i class="fas fa-envelope text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Email</h4>
                 <hr class="my-4" />
-                <div class="small text-black-50">
+                <div v-if="users && users[0] && users[0].email" class="small text-black-50">
                   <a href="#!">{{ users[0].email }}</a>
                 </div>
               </div>
@@ -171,7 +178,9 @@
                 <i class="fas fa-mobile-alt text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Phone</h4>
                 <hr class="my-4" />
-                <div class="small text-black-50">{{ users[0].phone_number }}</div>
+                <div v-if="users && users[0] && users[0].phone_number" class="small text-black-50">
+                  {{ users[0].phone_number }}
+                </div>
               </div>
             </div>
           </div>
@@ -195,12 +204,12 @@ export default {
   data: function() {
     return {
       photo_ones: [],
-      users: {
-        about_me: "",
-      },
+      carousel1: [],
+      carousel2: [],
+      users: {},
     };
   },
-  created: function() {
+  mounted() {
     this.indexUsers();
     this.indexPhotos();
   },
@@ -209,12 +218,27 @@ export default {
       axios.get("api/photo_ones").then(response => {
         console.log("photos index", response);
         this.photo_ones = response.data;
+        let carousel1 = [];
+        let carousel2 = [];
+        this.photo_ones.forEach(function(photo) {
+          if (photo.carousel === 1) {
+            console.log(photo);
+            carousel1.push(photo);
+          } else {
+            carousel2.push(photo);
+          }
+        });
+        this.carousel1 = carousel1;
+        this.carousel2 = carousel2;
+        console.log(this.carousel1);
+        console.log(this.carousel2);
       });
     },
     indexUsers: function() {
       axios.get("api/users").then(response => {
         console.log("user index", response);
         this.users = response.data;
+        console.log(this.users);
       });
     },
   },
