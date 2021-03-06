@@ -36,6 +36,12 @@
         <!-- Featured Project Row-->
         <div class="row align-items-center no-gutters mb-4 mb-lg-5">
           <div class="col-xl-8 col-lg-7">
+            <form>
+              <div class="form-group">
+                <label for="exampleFormControlFile1">Example file input</label>
+                <input type="file" v-on:change="setFile($event)" ref="fileInput" />
+              </div>
+            </form>
             <img
               v-if="users && users[0] && users[0].profile_pic"
               class="img-fluid"
@@ -45,10 +51,13 @@
           </div>
           <div class="col-xl-4 col-lg-5">
             <div class="featured-text text-center text-lg-left">
-              <h4>About Me</h4>
-              <p v-if="users && users[0] && users[0].about_me" class="text-black-50 mb-0">
-                {{ users[0].about_me }}
-              </p>
+              <form id="editProfile" v-on:submit.prevent="updateUser()">
+                <div class="form-group" v-if="users && users[0] && users[0].about_me">
+                  <label for="formControl1">About Me</label>
+                  <textarea class="about_me" id="aboutMe" rows="3" v-model="users[0].about_me"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
             </div>
           </div>
         </div>
@@ -156,9 +165,13 @@
                 <i class="fas fa-envelope text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Email</h4>
                 <hr class="my-4" />
-                <div v-if="users && users[0] && users[0].email" class="small text-black-50">
-                  <a href="#!">{{ users[0].email }}</a>
-                </div>
+                <form id="editProfile">
+                  <div v-if="users && users[0] && users[0].email" class="small text-black-50">
+                    <div class="form-group">
+                      <input type="text" class="email" id="FormControlPhoneNumber" v-model="users[0].email" />
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -168,9 +181,18 @@
                 <i class="fas fa-mobile-alt text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Phone</h4>
                 <hr class="my-4" />
-                <div v-if="users && users[0] && users[0].phone_number" class="small text-black-50">
-                  {{ users[0].phone_number }}
-                </div>
+                <form id="editProfile">
+                  <div v-if="users && users[0] && users[0].phone_number" class="small text-black-50">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="phone_number"
+                        id="FormControlPhoneNumber"
+                        v-model="users[0].phone_number"
+                      />
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -178,7 +200,7 @@
         <div class="social d-flex justify-content-center">
           <a class="mx-2" href="#!"><i class="fab fa-tiktok"></i></a>
           <a class="mx-2" href="https://www.facebook.com/KeeleyPhotography%20/"><i class="fab fa-facebook-f"></i></a>
-          <a class="mx-2" href="https://www.instagram.com/keeleyphotography_/!"><i class="fab fa-instagram"></i></a>
+          <a class="mx-2" href="https://www.instagram.com/keeleyphotography_/"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </section>
@@ -197,6 +219,7 @@ export default {
       carousel1: [],
       carousel2: [],
       users: {},
+      currentUser: [],
     };
   },
   mounted() {
@@ -230,6 +253,28 @@ export default {
     },
     goToSquare() {
       window.open("https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct");
+    },
+    updateUser: function(user) {
+      var params = {
+        phone_number: user.phone_number,
+        about_me: user.about_me,
+        profile_pic: user.profile_pic,
+        email: user.email,
+      };
+      axios
+        .patch("/api/users/" + user.id, params)
+        .then(response => {
+          console.log("users update", response);
+          this.currentUser = {};
+        })
+        .catch(error => {
+          console.log("users update error", error.response);
+        });
+    },
+    setFile: function(event) {
+      if (event.target.files.length > 0) {
+        this.image = event.target.files[0];
+      }
     },
   },
 };
