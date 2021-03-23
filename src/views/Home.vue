@@ -1,5 +1,51 @@
 <template>
   <div class="home">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Bold Angel Productions</a>
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
+            <li class="nav-item">
+              <a
+                class="nav-link js-scroll-trigger"
+                href="https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct"
+              >
+                Book Now
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header class="masthead">
+      <div class="container d-flex h-100 align-items-center">
+        <div class="mx-auto text-center">
+          <img src="assets/img/Monochrome on Transparent.png" alt="" class="center" />
+          <br />
+          <br />
+          <br />
+          <button type="button" class="btn btn-light" v-on:click="goToSquare()">
+            Book Now
+          </button>
+        </div>
+      </div>
+    </header>
+
     <!-- About-->
     <section class="about-section text-center" id="about">
       <div class="container">
@@ -37,17 +83,17 @@
         <div class="row align-items-center no-gutters mb-4 mb-lg-5">
           <div class="col-xl-8 col-lg-7">
             <img
-              v-if="users && users[0] && users[0].profile_pic"
+              v-if="users && users[(id = 1)] && users[(id = 1)].profile_pic"
               class="img-fluid"
-              v-bind:src="users[0].profile_pic"
+              v-bind:src="users[(id = 1)].profile_pic"
               alt=""
             />
           </div>
           <div class="col-xl-4 col-lg-5">
             <div class="featured-text text-center text-lg-left">
               <h4>About Me</h4>
-              <p v-if="users && users[0] && users[0].about_me" class="text-black-50 mb-0">
-                {{ users[0].about_me }}
+              <p v-if="users && users[(id = 1)] && users[(id = 1)].about_me" class="text-black-50 mb-0">
+                {{ users[(id = 1)].about_me }}
               </p>
             </div>
           </div>
@@ -146,7 +192,11 @@
                 <i class="fas fa-map-marked-alt text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Address</h4>
                 <hr class="my-4" />
-                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                <div class="small text-black-50">
+                  43 West Broad St,
+                  <br />
+                  Pawcatuck CT 06379
+                </div>
               </div>
             </div>
           </div>
@@ -156,8 +206,8 @@
                 <i class="fas fa-envelope text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Email</h4>
                 <hr class="my-4" />
-                <div v-if="users && users[0] && users[0].email" class="small text-black-50">
-                  <a href="#!">{{ users[0].email }}</a>
+                <div v-if="users && users[(id = 1)] && users[(id = 1)].email" class="small text-black-50">
+                  <a href="#!">{{ users[(id = 1)].email }}</a>
                 </div>
               </div>
             </div>
@@ -168,8 +218,8 @@
                 <i class="fas fa-mobile-alt text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Phone</h4>
                 <hr class="my-4" />
-                <div v-if="users && users[0] && users[0].phone_number" class="small text-black-50">
-                  {{ users[0].phone_number }}
+                <div v-if="users && users[(id = 1)] && users[(id = 1)].phone_number" class="small text-black-50">
+                  {{ users[(id = 1)].phone_number }}
                 </div>
               </div>
             </div>
@@ -182,6 +232,10 @@
         </div>
       </div>
     </section>
+
+    <footer class="footer bg-black small text-center text-white-50">
+      <div class="container">Copyright © Your Website 2020</div>
+    </footer>
   </div>
 </template>
 
@@ -202,6 +256,7 @@ export default {
   mounted() {
     this.indexUsers();
     this.indexPhotos();
+    document.addEventListener("scroll", this.navbarCollapse);
   },
   methods: {
     indexPhotos: function() {
@@ -230,6 +285,15 @@ export default {
     },
     goToSquare() {
       window.open("https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct");
+    },
+
+    navbarCollapse() {
+      const mainNav = document.getElementById("mainNav");
+      if (window.scrollY > 100) {
+        mainNav.classList.add("navbar-shrink");
+      } else {
+        mainNav.classList.remove("navbar-shrink");
+      }
     },
   },
 };

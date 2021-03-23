@@ -1,5 +1,43 @@
 <template>
   <div class="home">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Bold Angel Productions</a>
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
+            <li class="nav-item">
+              <a
+                class="nav-link js-scroll-trigger"
+                href="https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct"
+              >
+                Book Now
+              </a>
+            </li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/logout">logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header class="masthead">
+      <div class="container d-flex h-100 align-items-center">
+        <img src="assets/img/Monochrome on Transparent.png" alt="" class="center" />
+      </div>
+    </header>
     <!-- About-->
     <section class="about-section text-center" id="about">
       <div class="container">
@@ -31,33 +69,42 @@
     </section>
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
+      <form id="editProfile" v-on:submit.prevent="updateUser()">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" v-model="user.email" />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputPhoneNumber">phone number</label>
+            <input type="text" class="form-control" id="FormControlPhoneNumber" v-model="user.phone_number" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlFile1">Input Profile Pic</label>
+          <br />
+          <input class="form-group" type="file" v-on:change="setFile($event)" ref="fileInput" />
+        </div>
+        <div class="form-group">
+          <label for="formControl1">About Me</label>
+          <br />
+          <textarea class="form-control" id="aboutMe" rows="6" v-model="user.about_me"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
       <div class="container">
         <!-- carocel -->
         <!-- Featured Project Row-->
         <div class="row align-items-center no-gutters mb-4 mb-lg-5">
           <div class="col-xl-8 col-lg-7">
-            <form>
-              <div class="form-group">
-                <label for="exampleFormControlFile1">Example file input</label>
-                <input type="file" v-on:change="setFile($event)" ref="fileInput" />
-              </div>
-            </form>
-            <img
-              v-if="users && users[0] && users[0].profile_pic"
-              class="img-fluid"
-              v-bind:src="users[0].profile_pic"
-              alt=""
-            />
+            <img class="img-fluid" v-bind:src="user.profile_pic" alt="" />
           </div>
           <div class="col-xl-4 col-lg-5">
             <div class="featured-text text-center text-lg-left">
-              <form id="editProfile" v-on:submit.prevent="updateUser()">
-                <div class="form-group" v-if="users && users[0] && users[0].about_me">
-                  <label for="formControl1">About Me</label>
-                  <textarea class="about_me" id="aboutMe" rows="3" v-model="users[0].about_me"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+              <h4>About Me</h4>
+              <p class="text-black-50 mb-0">
+                {{ user.about_me }}
+              </p>
             </div>
           </div>
         </div>
@@ -129,6 +176,49 @@
             </div>
           </div>
         </div>
+        <br />
+        <div class="card-deck">
+          <div class="col-sm-6" style="width: 18rem;" v-for="photoOne in photo_ones">
+            <img class="card-img-top" v-bind:src="photoOne.image" alt="Card image cap" />
+            <div class="card-body">
+              <div class="form-group">
+                <button v-on:click="showPhoto(photoOne)" class="btn btn-primary">Edit</button>
+              </div>
+            </div>
+
+            <dialog :id="`photo-details-${photoOne.id}`">
+              <form method="dialog" @submit="e => handleSubmit(e, photoOne.id)">
+                <h1>Product info</h1>
+                <img class="card-img-top" v-bind:src="photoOne.image" alt="Card image cap" />
+                <label for="exampleFormControlSelect1">Select Carousel</label>
+                <select class="form-control" id="FormControlSelect1" v-model="photoOne.carousel">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                </select>
+                <button v-on:click="updatePhoto(photoOne)">update</button>
+                <button v-on:click="destroyPhoto(photoOne)">delete</button>
+                <button value="cancel">close</button>
+              </form>
+            </dialog>
+          </div>
+        </div>
+
+        <!-- Create New Photo -->
+        <div>
+          <form id="createPhoto" v-on:submit.prevent="createPhoto()">
+            <h2>Create new Photo</h2>
+            <h5>Select Photo</h5>
+            <input class="form-group" type="file" v-on:change="setFile2($event)" ref="fileInput" />
+            <h5>Select Carousel</h5>
+            <select class="form-control" id="FormControlSelect1" v-model="newPhotoOnecarousel">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
       </div>
     </section>
     <!-- Signup-->
@@ -155,7 +245,11 @@
                 <i class="fas fa-map-marked-alt text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Address</h4>
                 <hr class="my-4" />
-                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                <div class="small text-black-50">
+                  43 West Broad St,
+                  <br />
+                  Pawcatuck CT 06379
+                </div>
               </div>
             </div>
           </div>
@@ -165,13 +259,9 @@
                 <i class="fas fa-envelope text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Email</h4>
                 <hr class="my-4" />
-                <form id="editProfile">
-                  <div v-if="users && users[0] && users[0].email" class="small text-black-50">
-                    <div class="form-group">
-                      <input type="text" class="email" id="FormControlPhoneNumber" v-model="users[0].email" />
-                    </div>
-                  </div>
-                </form>
+                <div class="small text-black-50">
+                  <a href="#!">{{ user.email }}</a>
+                </div>
               </div>
             </div>
           </div>
@@ -181,18 +271,9 @@
                 <i class="fas fa-mobile-alt text-primary mb-2"></i>
                 <h4 class="text-uppercase m-0">Phone</h4>
                 <hr class="my-4" />
-                <form id="editProfile">
-                  <div v-if="users && users[0] && users[0].phone_number" class="small text-black-50">
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        class="phone_number"
-                        id="FormControlPhoneNumber"
-                        v-model="users[0].phone_number"
-                      />
-                    </div>
-                  </div>
-                </form>
+                <div class="small text-black-50">
+                  {{ user.phone_number }}
+                </div>
               </div>
             </div>
           </div>
@@ -204,6 +285,10 @@
         </div>
       </div>
     </section>
+
+    <footer class="footer bg-black small text-center text-white-50">
+      <div class="container">Copyright © Your Website 2020</div>
+    </footer>
   </div>
 </template>
 
@@ -215,17 +300,24 @@ import axios from "axios";
 export default {
   data: function() {
     return {
+      user: [],
+      phone_number: "",
       photo_ones: [],
       carousel1: [],
       carousel2: [],
       users: {},
-      currentUser: [],
+      currentPhotoOne: {},
+      newPhotoOneImage: "",
+      newPhotoOnecarousel: "",
     };
   },
   mounted() {
     this.indexUsers();
     this.indexPhotos();
+    this.showUser();
+    document.addEventListener("scroll", this.navbarCollapse);
   },
+
   methods: {
     indexPhotos: function() {
       axios.get("api/photo_ones").then(response => {
@@ -244,6 +336,7 @@ export default {
         this.carousel2 = carousel2;
       });
     },
+
     indexUsers: function() {
       axios.get("api/users").then(response => {
         console.log("user index", response);
@@ -251,18 +344,30 @@ export default {
         console.log(this.users);
       });
     },
-    goToSquare() {
-      window.open("https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct");
+
+    showUser: function() {
+      axios.get("api/users/" + this.$route.params.id).then(response => {
+        console.log("user show", response);
+        this.user = response.data;
+      });
     },
+
+    showPhoto: function(photoOne) {
+      axios.get("api/photo_ones/" + photoOne.id).then(response => {
+        console.log("photo_one show", response);
+        // this.photo_one = response.data;
+        document.querySelector(`#photo-details-${photoOne.id}`).showModal();
+      });
+    },
+
     updateUser: function(user) {
-      var params = {
-        phone_number: user.phone_number,
-        about_me: user.about_me,
-        profile_pic: user.profile_pic,
-        email: user.email,
-      };
+      var formData = new FormData();
+      formData.append("profile_pic", this.user.profile_pic);
+      formData.append("phone_number", this.user.phone_number);
+      formData.append("about_me", this.user.about_me);
+      formData.append("email", this.user.email);
       axios
-        .patch("/api/users/" + user.id, params)
+        .patch("/api/users/" + this.user.id, formData)
         .then(response => {
           console.log("users update", response);
           this.currentUser = {};
@@ -271,10 +376,77 @@ export default {
           console.log("users update error", error.response);
         });
     },
+
+    updatePhoto: function(photoOne) {
+      console.log("update photo", photoOne);
+      var params = {
+        image: photoOne.image,
+        carousel: photoOne.carousel,
+      };
+      axios
+        .patch("/api/photo_ones/" + photoOne.id, params)
+        .then(response => {
+          console.log("photo_ones update", response);
+          this.photoOne = {};
+        })
+        .catch(error => {
+          console.log("photo_ones update error", error.response);
+        });
+    },
+
+    createPhoto: function() {
+      var formData = new FormData();
+      formData.append("image", this.newPhotoOneImage);
+      formData.append("carousel", this.newPhotoOneCarousel);
+      axios
+        .post("/api/photo_ones", formData)
+        .then(response => {
+          console.log("photo_ones create", response);
+          this.newPhotoOneImage = "";
+          this.newPhotoOnecarousel = "";
+        })
+        .catch(error => {
+          console.log("photo ones create error", error.response);
+        });
+    },
+
+    destroyPhoto: function(photoOne) {
+      axios.delete("/api/photo_ones/" + photoOne.id).then(response => {
+        console.log("success", response.data);
+        var index = this.photo_ones.indexOf(photoOne);
+        this.photo_ones.splice(index, 1);
+      });
+    },
+
     setFile: function(event) {
       if (event.target.files.length > 0) {
-        this.image = event.target.files[0];
+        this.user.profile_pic = event.target.files[0];
       }
+    },
+
+    setFile2: function(event) {
+      if (event.target.files.length > 0) {
+        this.newPhotoOneImage = event.target.files[0];
+      }
+    },
+
+    goToSquare() {
+      window.open("https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct");
+    },
+
+    navbarCollapse() {
+      const mainNav = document.getElementById("mainNav");
+      if (window.scrollY > 100) {
+        mainNav.classList.add("navbar-shrink");
+      } else {
+        mainNav.classList.remove("navbar-shrink");
+      }
+    },
+
+    handleSubmit(e, id) {
+      console.log(e, id);
+      e.preventDefault();
+      document.querySelector(`#photo-details-${id}`).close();
     },
   },
 };
