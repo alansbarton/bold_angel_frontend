@@ -35,7 +35,7 @@
     <header class="masthead">
       <div class="container d-flex h-100 align-items-center">
         <div class="mx-auto text-center">
-          <img src="assets/img/Monochrome on Transparent.png" alt="" class="center" />
+          <img src="/assets/img/Monochrome on Transparent.png" alt="" class="center" />
           <br />
           <br />
           <br />
@@ -226,7 +226,6 @@
           </div>
         </div>
         <div class="social d-flex justify-content-center">
-          <a class="mx-2" href="#!"><i class="fab fa-tiktok"></i></a>
           <a class="mx-2" href="https://www.facebook.com/KeeleyPhotography%20/"><i class="fab fa-facebook-f"></i></a>
           <a class="mx-2" href="https://www.instagram.com/keeleyphotography_/!"><i class="fab fa-instagram"></i></a>
         </div>
@@ -234,7 +233,10 @@
     </section>
 
     <footer class="footer bg-black small text-center text-white-50">
-      <div class="container">Copyright © Your Website 2020</div>
+      <div>
+        <router-link class="social d-flex justify-content-center" to="/login">login</router-link>
+        <router-link class="social d-flex justify-content-center" to="/signup">signup</router-link>
+      </div>
     </footer>
   </div>
 </template>
