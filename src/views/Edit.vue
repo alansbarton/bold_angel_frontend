@@ -28,14 +28,18 @@
                 Book Now
               </a>
             </li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/logout">logout</a></li>
+            <li class="nav-item"><router-link class="nav-link js-scroll-trigger" to="/logout">Logout</router-link></li>
           </ul>
         </div>
       </div>
     </nav>
     <header class="masthead">
       <div class="container d-flex h-100 align-items-center">
-        <img src="https://res.cloudinary.com/dnnf4debc/image/upload/v1616796989/Monochrome_on_Transparent_tsstbb.png" alt="" class="center" />
+        <img
+          src="https://res.cloudinary.com/dnnf4debc/image/upload/v1616796989/Monochrome_on_Transparent_tsstbb.png"
+          alt=""
+          class="center"
+        />
       </div>
     </header>
     <!-- About-->
