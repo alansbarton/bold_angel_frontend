@@ -35,7 +35,11 @@
     <header class="masthead">
       <div class="container d-flex h-100 align-items-center">
         <div class="mx-auto text-center">
-          <img src="/assets/img/Monochrome on Transparent.png" alt="" class="center" />
+          <img
+            src="https://res.cloudinary.com/dnnf4debc/image/upload/v1616796989/Monochrome_on_Transparent_tsstbb.png"
+            alt=""
+            class="center"
+          />
           <br />
           <br />
           <br />
