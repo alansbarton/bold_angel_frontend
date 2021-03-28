@@ -235,7 +235,6 @@
     <footer class="footer bg-black small text-center text-white-50">
       <div>
         <router-link class="social d-flex justify-content-center" to="/login">login</router-link>
-        <router-link class="social d-flex justify-content-center" to="/signup">signup</router-link>
       </div>
     </footer>
   </div>
