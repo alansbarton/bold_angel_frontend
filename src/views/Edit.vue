@@ -135,10 +135,8 @@
             <div class="bg-black text-center h-100 project">
               <div class="d-flex h-100">
                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                  <h4 class="text-white">Shoreline</h4>
                   <p class="mb-0 text-white-50">
-                    Grayscale is open source and MIT licensed. This means you can use it for any project - even
-                    commercial projects! Download it, customize it, and publish your website!
+                    Go ahead and break the mold
                   </p>
                   <hr class="d-none d-lg-block mb-0 ml-0" />
                 </div>
@@ -169,10 +167,8 @@
             <div class="bg-black text-center h-100 project">
               <div class="d-flex h-100">
                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                  <h4 class="text-white">Mountains</h4>
                   <p class="mb-0 text-white-50">
-                    Another example of a project with its respective description. These sections work well responsively
-                    as well, try this theme on a small screen!
+                    I'm gonna be bold
                   </p>
                   <hr class="d-none d-lg-block mb-0 mr-0" />
                 </div>
@@ -283,7 +279,6 @@
           </div>
         </div>
         <div class="social d-flex justify-content-center">
-          <a class="mx-2" href="#!"><i class="fab fa-tiktok"></i></a>
           <a class="mx-2" href="https://www.facebook.com/KeeleyPhotography%20/"><i class="fab fa-facebook-f"></i></a>
           <a class="mx-2" href="https://www.instagram.com/keeleyphotography_/"><i class="fab fa-instagram"></i></a>
         </div>
@@ -291,7 +286,7 @@
     </section>
 
     <footer class="footer bg-black small text-center text-white-50">
-      <div class="container">Copyright © Your Website 2020</div>
+      <!-- <div class="container">Copyright © Your Website 2020</div> -->
     </footer>
   </div>
 </template>
