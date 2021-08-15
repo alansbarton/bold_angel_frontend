@@ -23,9 +23,9 @@
             <li class="nav-item">
               <a
                 class="nav-link js-scroll-trigger"
-                href="https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct"
+                href="https://charlottekeeley.passgallery.com/portfolio"
               >
-                Book Now
+                Client Galleries
               </a>
             </li>
           </ul>
@@ -40,12 +40,10 @@
             alt=""
             class="center"
           />
-          <br />
-          <br />
-          <br />
+<!-- 
           <button type="button" class="btn btn-light" v-on:click="goToSquare()">
             Book Now
-          </button>
+          </button> -->
         </div>
       </div>
     </header>
@@ -67,11 +65,11 @@
               Whether you see the light, or enjoy the darkness, we all have that one thing that makes us Bold. Being
               Bold, can mean whatever you want it to mean, I want it to be my job to show it off. In the words of Jen
               Ledger, repeat this to yourself everyday, “I’m Gonna Be Bold.”
-              <br />
-              <br />
-              <br />
+              <br>
+              <br>
+              <br>
               <button type="button" class="btn btn-light" v-on:click="goToSquare()">
-                Book Now
+                Client Galleries
               </button>
             </p>
           </div>
@@ -107,7 +105,7 @@
           <div class="col-lg-6">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
               <div id="bg-size" class="carousel-inner">
-                <div class="carousel-item" v-for="(photo_one, idx) in carousel1" :class="{ active: idx == 0 }">
+                <div class="carousel-item img-size" v-for="(photo_one, idx) in carousel1" :class="{ active: idx == 0 }">
                   <img v-bind:src="photo_one.image" class="d-block w-100 h-100" alt="..." />
                 </div>
               </div>
@@ -125,8 +123,24 @@
             <div class="bg-black text-center h-100 project">
               <div class="d-flex h-100">
                 <div class="project-text w-100 my-auto text-center text-lg-left">
+                  <h4 class="text-white-50">Bold Angel Productions Fantasy/Cosplay Photo Package</h4>
                   <p class="mb-0 text-white-50">
-                    Go ahead and break the mold
+                    $500 <br>
+                    1-2 Hour Portrait Session <br>
+                    In Studio or Selected Location <br>
+                    30-35 Personal Image Gallery <br>
+                    Multiple Client Outfits Availble<br>
+                    Outfit Consultations Optional<br>
+                    * $150 Required to Book<br>
+                    * Remaining Payment due day of session<br>
+                    * Print Sold Separatly<br>
+                    * No Hair or Makup on site Please Plan Accordingly
+                  </p>
+                  <br>
+                  <br>
+                  <p class="mb-0 text-white-50">
+                    For Quetions About Booking Email
+                    <a class="email text-white-50" href="'mailto:' + boldangelproductions@gmail.com"> boldangelproductions@gmail.com </a>
                   </p>
                   <hr class="d-none d-lg-block mb-0 ml-0" />
                 </div>
@@ -139,7 +153,7 @@
           <div class="col-lg-6">
             <div id="carouselExampleFade1" class="carousel slide carousel-fade" data-bs-ride="carousel">
               <div id="bg-size" class="carousel-inner">
-                <div class="carousel-item" v-for="(photo_one, idx) in carousel2" :class="{ active: idx == 0 }">
+                <div class="carousel-item img-size" v-for="(photo_one, idx) in carousel2" :class="{ active: idx == 0 }">
                   <img v-bind:src="photo_one.image" class="d-block w-100 h-100" alt="..." />
                 </div>
               </div>
@@ -157,8 +171,18 @@
             <div class="bg-black text-center h-100 project">
               <div class="d-flex h-100">
                 <div class="project-text w-100 my-auto text-center text-lg-right">
+                  <h4 class="text-white-50">Bold Angel Boudoir Photo Package</h4>
                   <p class="mb-0 text-white-50">
-                    I'm gonna be bold
+                    $400 <br>
+                    1-2 Hour Portrait Session <br>
+                    In Studio or Selected Location <br>
+                    35-45 Personal Image Gallery <br>
+                    2-3 Outfit Changes if Desired Optional<br>
+                    * Client Closet Options Availble<br>
+                    * $150 Required to Book<br>
+                    * Remaining Payment due day of session<br>
+                    * Print Sold Separatly<br>
+                    * No Hair or Makup on site Please Plan Accordingly
                   </p>
                   <hr class="d-none d-lg-block mb-0 mr-0" />
                 </div>
@@ -174,10 +198,10 @@
         <div class="row">
           <div class="col-md-10 col-lg-8 mx-auto text-center">
             <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-            <h2 class="text-white mb-5">Book now for your next photo shoot!</h2>
-            <button class="btn btn-primary mx-auto" v-on:click="goToSquare()">
+            <h2 class="text-white mb-5">To book a session inquire by email</h2>
+            <!-- <button class="btn btn-primary mx-auto" v-on:click="goToSquare()">
               Book Now
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -285,7 +309,7 @@ export default {
       });
     },
     goToSquare() {
-      window.open("https://square.site/book/7TMT3H9TBMGR7/bold-angel-productions-pawcatuck-ct");
+      window.open("https://charlottekeeley.passgallery.com/portfolio");
     },
 
     navbarCollapse() {

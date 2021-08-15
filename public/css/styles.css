@@ -10665,6 +10665,12 @@ body {
 .projects-section {
   padding: 10rem 0;
 }
+.img-size {
+  display: flex;
+   max-height: 800px; 
+   width: auto;
+}
+
 .projects-section .featured-text {
   padding: 2rem;
 }
